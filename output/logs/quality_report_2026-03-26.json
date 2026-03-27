@@ -1,0 +1,16 @@
+{
+  "date": "2026-03-26",
+  "mode": "api",
+  "test_count": 1,
+  "avg_seo_score": 81.0,
+  "results": [
+    {
+      "keyword": "Claude AI 최신 기능",
+      "seo_score": 81,
+      "issues": [
+        "FAQ 없음",
+        "JSON-LD 0개 (2개 필요)"
+      ]
+    }
+  ]
+}

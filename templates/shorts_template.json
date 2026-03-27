@@ -1,0 +1,48 @@
+{
+  "brand_name": "AI 인사이트",
+  "brand_sub": "최신 AI 트렌드 분석",
+  "brand_by": "P004 Auto",
+  "outro_url": "ai-insight-blog.blogspot.com",
+  "outro_cta": "구독하면 매일 AI 소식을 받습니다",
+  "bgm_volume": 0.08,
+  "tts_voice_ko": "ko-KR-Wavenet-A",
+  "tts_speaking_rate_default": 1.05,
+  "transition_duration": 0.5,
+  "font_title_size": 72,
+  "font_body_size": 48,
+  "font_meta_size": 32,
+  "font_ticker_size": 28,
+  "ticker_text": "AI 인사이트 · {corner} · {date}",
+  "corners": {
+    "AI 소식": {
+      "color": "#3b82f6",
+      "tts_speed": 1.0,
+      "transition": "fade",
+      "bg_prompt_style": "futuristic digital brain network blue abstract background"
+    },
+    "AI 분석": {
+      "color": "#7c3aed",
+      "tts_speed": 1.05,
+      "transition": "slideleft",
+      "bg_prompt_style": "data analytics visualization purple abstract"
+    },
+    "AI 활용": {
+      "color": "#10a37f",
+      "tts_speed": 1.0,
+      "transition": "fade",
+      "bg_prompt_style": "person using AI tools productive workspace abstract"
+    },
+    "AI 개발": {
+      "color": "#84cc16",
+      "tts_speed": 1.1,
+      "transition": "slideleft",
+      "bg_prompt_style": "code programming neural network green abstract"
+    },
+    "AI 인사이트": {
+      "color": "#f59e0b",
+      "tts_speed": 1.0,
+      "transition": "fade",
+      "bg_prompt_style": "golden insight knowledge abstract background"
+    }
+  }
+}

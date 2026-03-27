@@ -1,0 +1,124 @@
+[2026-03-26 07:33 UTC] ============================================================
+[2026-03-26 07:33 UTC] P004 Daily Pipeline 시작 — 2026-03-26
+[2026-03-26 07:33 UTC]   모드: --mock-research (더미 토픽 사용)
+[2026-03-26 07:33 UTC] ============================================================
+[2026-03-26 07:33 UTC] 
+[Step 1/4] Research Agent
+[2026-03-26 07:33 UTC]   [Mock] Research 단계 건너뜀 — 더미 토픽 사용
+[2026-03-26 07:33 UTC]   완료 (mock) — 3개 주제
+[2026-03-26 07:33 UTC] 
+[Step 2/4] SEO Agent
+[SEO Agent] 2026-03-26 시작
+
+  [1/3] SEO 분석: Claude AI 최신 기능 2025
+    ❌ 오류: Unterminated string starting at: line 133 column 5 (char 4542)
+
+  [2/3] SEO 분석: AI 에이전트 자동화 워크플로우
+    ❌ 오류: Unterminated string starting at: line 115 column 5 (char 3922)
+
+  [3/3] SEO 분석: Gemini 2.0 Flash 성능 분석
+    ❌ 오류: Unterminated string starting at: line 117 column 5 (char 4239)
+
+[SEO Agent] 완료 → /root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/seo/seo_plan_2026-03-26.json
+[2026-03-26 07:35 UTC]   완료 (130.3s) — 3개 SEO 계획
+[2026-03-26 07:35 UTC] 
+[Step 3/4] Writer Agent
+[Writer Agent] 2026-03-26 시작
+
+[1/3] 포스트 작성...
+  [1] 작성 시작: Claude AI 최신 기능 2025
+    ⚠ SEO 누락: ['FAQ 섹션 (class="faq")', 'JSON-LD 0개 (2개 필요)'] → 재시도 1/2
+    ⚠ 여전히 누락: ['FAQ 섹션 (class="faq")', 'JSON-LD 0개 (2개 필요)'] → 재시도 2/2
+    ⚠ 2회 재시도 후에도 누락: ['FAQ 섹션 (class="faq")', 'JSON-LD 0개 (2개 필요)'] (계속 진행)
+    글자수: 4,438자 (공백 제외, 본문만)
+    ⚠ SEO 구조 경고 (최종): ['FAQ 없음', 'JSON-LD 없음']
+  ✅ 저장: post_2026-03-26_1.html (4,438자)
+
+[2/3] 포스트 작성...
+  [2] 작성 시작: AI 에이전트 자동화 워크플로우
+  ❌ 오류: The read operation timed out
+
+[3/3] 포스트 작성...
+  [3] 작성 시작: Gemini 2.0 Flash 성능 분석
+    ⚠ SEO 누락: ['FAQ 섹션 (class="faq")', 'JSON-LD 0개 (2개 필요)'] → 재시도 1/2
+    ⚠ 여전히 누락: ['FAQ 섹션 (class="faq")', 'JSON-LD 0개 (2개 필요)'] → 재시도 2/2
+    ⚠ 2회 재시도 후에도 누락: ['JSON-LD 0개 (2개 필요)'] (계속 진행)
+    글자수: 4,147자 (공백 제외, 본문만)
+    ⚠ SEO 구조 경고 (최종): ['JSON-LD 없음']
+  ✅ 저장: post_2026-03-26_3.html (4,147자)
+
+[Writer Agent] 완료 — 2/3 포스트 작성
+[2026-03-26 07:48 UTC]   완료 (761.0s) — 2/3 포스트 3,000자 이상
+[2026-03-26 07:48 UTC]     [1] Claude AI 최신 기능 2025 (4,438자)
+[2026-03-26 07:48 UTC]     [3] Gemini 2.0 Flash 성능 분석 (4,147자)
+[2026-03-26 07:48 UTC] 
+[Step 3.5] Image Gen Agent
+[image_gen] 이미지 생성 에이전트 시작
+
+  [포스트 1] Claude AI 최신 기능 2025...
+  [thumbnail] 저장: /root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/images/post_2026-03-26_1_thumb.png
+  [card] 저장: /root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/images/post_2026-03-26_1_card.png
+
+  [포스트 3] Gemini 2.0 Flash 성능 분석...
+  [thumbnail] 저장: /root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/images/post_2026-03-26_3_thumb.png
+  [card] 저장: /root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/images/post_2026-03-26_3_card.png
+  [html] 이미지 src 교체: ../images/post_2026-03-26_3_thumb.png
+
+[image_gen] 완료 — 2개 포스트 이미지 생성 → /root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/logs/image_log_2026-03-26.json
+[2026-03-26 07:48 UTC]   완료 (0.3s) — 2개 포스트 이미지 생성
+[2026-03-26 07:48 UTC]     [1] thumb=post_2026-03-26_1_thumb.png card=post_2026-03-26_1_card.png HTML 미교체
+[2026-03-26 07:48 UTC]     [3] thumb=post_2026-03-26_3_thumb.png card=post_2026-03-26_3_card.png HTML 교체
+[2026-03-26 07:48 UTC] 
+[Step 3.7] SEO 자동 검증
+[2026-03-26 07:48 UTC]   [1] ⚠ HTML 파일 없음 — SEO 검증 스킵
+[2026-03-26 07:48 UTC]   [3] ⚠ SEO 이슈 1개:
+[2026-03-26 07:48 UTC]       - Schema JSON-LD 없음
+[2026-03-26 07:48 UTC]   SEO 검증 완료 — 0/1 통과 → /root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/logs/seo_validation_2026-03-26.json
+[2026-03-26 07:48 UTC] 
+[Step 3.9] SNS Pipeline Agent
+[SNS Pipeline] 시작 — 2026-03-26
+
+[1] Claude AI 최신 기능 2025
+  ✅ 카드 이미지 재사용: post_2026-03-26_1_card.png
+스레드 변환 시작: Claude AI 최신 기능 2025
+스레드 저장: /root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/threads/20260326__thread.json (5개 트윗)
+스레드 변환 완료
+  ✅ 스레드 JSON 생성: 20260326__thread.json (5개 트윗)
+  ✅ 뉴스레터 아이템 수집
+ffmpeg 없음 — 쇼츠 생성 건너뜀 (PATH 또는 FFMPEG_PATH 확인)
+  ℹ 쇼츠 생성 건너뜀 (ffmpeg 없음 또는 key_points 없음)
+Instagram 자격증명 없음 (.env: INSTAGRAM_ACCESS_TOKEN, INSTAGRAM_ACCOUNT_ID) — 건너뜀
+  ⚠ Instagram: 건너뜀
+X API 자격증명 없음 (.env: X_API_KEY 등) — 건너뜀
+  ⚠ X 스레드: 건너뜀
+
+[3] Gemini 2.0 Flash 성능 분석
+  ✅ 카드 이미지 재사용: post_2026-03-26_3_card.png
+스레드 변환 시작: Gemini 2.0 Flash 성능 분석
+스레드 저장: /root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/threads/20260326__thread.json (5개 트윗)
+스레드 변환 완료
+  ✅ 스레드 JSON 생성: 20260326__thread.json (5개 트윗)
+  ✅ 뉴스레터 아이템 수집
+ffmpeg 없음 — 쇼츠 생성 건너뜀 (PATH 또는 FFMPEG_PATH 확인)
+  ℹ 쇼츠 생성 건너뜀 (ffmpeg 없음 또는 key_points 없음)
+Instagram 자격증명 없음 (.env: INSTAGRAM_ACCESS_TOKEN, INSTAGRAM_ACCOUNT_ID) — 건너뜀
+  ⚠ Instagram: 건너뜀
+X API 자격증명 없음 (.env: X_API_KEY 등) — 건너뜀
+  ⚠ X 스레드: 건너뜀
+주간 뉴스레터 생성 시작: 2개 글
+뉴스레터 저장: /root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/newsletters/weekly_20260326_newsletter.html
+주간 뉴스레터 생성 완료
+뉴스레터 HTML 생성: /root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/newsletters/weekly_20260326_newsletter.html
+
+[SNS Pipeline] 완료 — 2개 포스트 처리
+  [1] Claude AI 최신 기능 2025
+      포맷: card, thread, newsletter | 배포: 없음
+  [3] Gemini 2.0 Flash 성능 분석
+      포맷: card, thread, newsletter | 배포: 없음
+[2026-03-26 07:48 UTC]   완료 (0.0s) — 스레드:2개 뉴스레터:✅ IG:0 X:0 YT:0
+[2026-03-26 07:48 UTC]   뉴스레터: weekly_20260326_newsletter.html
+[2026-03-26 07:48 UTC] 
+[Step 4/5] Publisher 생략 (--no-publish 모드)
+[2026-03-26 07:48 UTC] 
+파이프라인 완료 — 총 소요: 891.5s
+[2026-03-26 07:48 UTC] ============================================================

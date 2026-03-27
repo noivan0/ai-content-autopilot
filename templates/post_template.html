@@ -1,0 +1,352 @@
+<!--
+  P004 Blog Automation — 포스트 HTML 참고 템플릿
+  ================================================
+  변수 형식: {{ variable_name }}
+  
+  사용법:
+  1. 이 파일은 참고용 템플릿입니다 (실제 writer.py가 자동 생성)
+  2. 변수를 실제 콘텐츠로 교체한 후 Blogger에 업로드
+  3. Blogger HTML 에디터에서 직접 붙여넣기 가능
+  
+  SEO 구조 순서 (Google SEO 2025 최적):
+  1. <article> 래퍼 + Schema.org 속성
+  2. H1 헤딩
+  3. 핵심 요약 박스 (Featured Snippet 타겟)
+  4. 목차(ToC) — 4개 이상 섹션 시 필수
+  5. 도입부
+  6. 본론 H2 섹션들 (각 id 앵커 포함)
+  7. FAQ 섹션 (People Also Ask 타겟)
+  8. 결론 + CTA
+  9. Article + FAQPage JSON-LD
+  10. </article> 닫기
+-->
+
+<!-- ===== OG / SEO META (Blogger 테마 헤더에 추가 권장) =====
+<meta property="og:title" content="{{ og_title }}" />
+<meta property="og:description" content="{{ og_description }}" />
+<meta property="og:type" content="article" />
+<meta property="og:image" content="{{ og_image_url }}" />
+<meta name="keywords" content="{{ primary_keyword }}" />
+<link rel="canonical" href="{{ canonical_url }}" />
+===== END OG META ===== -->
+
+<!-- ===================================================
+     STEP 1: <article> 래퍼 + Schema.org 속성
+     ================================================= -->
+<article itemscope itemtype="https://schema.org/Article">
+
+<!-- ===================================================
+     STEP 2: H1 헤딩 (메인 키워드 포함, 60자 이내)
+     itemprop="headline" 필수
+     ================================================= -->
+<h1 itemprop="headline">{{ h1_title }}</h1>
+
+<!-- ===================================================
+     STEP 3: 핵심 요약 박스
+     - H1 바로 다음, ToC 위에 배치 (필수)
+     - 3줄 이내로 검색 의도에 즉시 답변
+     - Featured Snippet 타겟
+     ================================================= -->
+<div class="summary-box" style="background:#f0f7ff;border-left:4px solid #1a73e8;padding:16px 20px;margin:20px 0;border-radius:4px;">
+  <strong>💡 핵심 요약</strong>
+  <p>{{ summary_line_1 }}</p>
+  <p>{{ summary_line_2 }}</p>
+  <p>{{ summary_line_3 }}</p>
+</div>
+
+<!-- ===================================================
+     STEP 4: 목차 (ToC)
+     - 4개 이상 H2 섹션 시 자동 생성
+     - 각 앵커(#section-N)는 본론 H2의 id와 일치해야 함
+     ================================================= -->
+<nav class="toc" style="background:#f9f9f9;border:1px solid #e0e0e0;padding:16px 20px;margin:20px 0;border-radius:4px;">
+  <strong>📋 목차</strong>
+  <ol>
+    <li><a href="#section-1">{{ toc_section_1 }}</a></li>
+    <li><a href="#section-2">{{ toc_section_2 }}</a></li>
+    <li><a href="#section-3">{{ toc_section_3 }}</a></li>
+    <li><a href="#section-4">{{ toc_section_4 }}</a></li>
+    <li><a href="#section-5">{{ toc_section_5 }}</a></li>
+    <li><a href="#faq">자주 묻는 질문</a></li>
+    <li><a href="#conclusion">결론</a></li>
+  </ol>
+</nav>
+
+<!-- ===================================================
+     STEP 5: 도입부
+     - 150단어 이내
+     - 검색 의도 즉시 충족
+     - 이 글에서 얻을 것 명시
+     ================================================= -->
+<p itemprop="description">{{ intro_paragraph }}</p>
+
+<p>이 글에서 배울 수 있는 것:</p>
+<ul>
+  <li>{{ intro_benefit_1 }}</li>
+  <li>{{ intro_benefit_2 }}</li>
+  <li>{{ intro_benefit_3 }}</li>
+</ul>
+
+<!-- ===================================================
+     STEP 6: 본론 H2 섹션들
+     - 각 H2에 id 앵커 부여 (ToC와 일치)
+     - LSI 키워드 자연 배치
+     - 각 섹션 최소 300자
+     - 불릿/표/코드블록 적극 활용
+     ================================================= -->
+
+<h2 id="section-1">{{ h2_section_1 }}</h2>
+<!-- 이미지 자리: IMAGE 주석 + figure 태그 -->
+<!-- IMAGE: {{ image_1_description }} -->
+<figure>
+  <img alt="{{ image_1_alt_text }}" src="placeholder.jpg" loading="lazy">
+  <figcaption>{{ image_1_caption }}</figcaption>
+</figure>
+
+<p>{{ section_1_paragraph_1 }}</p>
+<p>{{ section_1_paragraph_2 }}</p>
+
+<!-- 불릿 목록 예시 -->
+<ul>
+  <li><strong>{{ bullet_1_title }}:</strong> {{ bullet_1_content }}</li>
+  <li><strong>{{ bullet_2_title }}:</strong> {{ bullet_2_content }}</li>
+  <li><strong>{{ bullet_3_title }}:</strong> {{ bullet_3_content }}</li>
+</ul>
+
+<!-- 내부 링크 예시 ([내부링크 자리: 주제명] 형식으로 writer가 생성) -->
+<p>관련 내용: <a href="/{{ internal_link_1_slug }}">{{ internal_link_1_title }}</a>도 함께 확인해보세요.</p>
+
+<h2 id="section-2">{{ h2_section_2 }}</h2>
+<p>{{ section_2_paragraph_1 }}</p>
+
+<!-- 표 예시 -->
+<table>
+  <thead>
+    <tr>
+      <th>{{ table_header_1 }}</th>
+      <th>{{ table_header_2 }}</th>
+      <th>{{ table_header_3 }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ table_row_1_col_1 }}</td>
+      <td>{{ table_row_1_col_2 }}</td>
+      <td>{{ table_row_1_col_3 }}</td>
+    </tr>
+    <tr>
+      <td>{{ table_row_2_col_1 }}</td>
+      <td>{{ table_row_2_col_2 }}</td>
+      <td>{{ table_row_2_col_3 }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="section-3">{{ h2_section_3 }}</h2>
+<p>{{ section_3_paragraph_1 }}</p>
+<p>{{ section_3_paragraph_2 }}</p>
+
+<!-- 외부 링크: 반드시 target="_blank" rel="noopener noreferrer" -->
+<p>자세한 내용은 
+  <a href="{{ external_link_1_url }}" target="_blank" rel="noopener noreferrer">{{ external_link_1_title }}</a>를 
+  참고하세요.
+</p>
+
+<h2 id="section-4">{{ h2_section_4 }}</h2>
+<p>{{ section_4_paragraph_1 }}</p>
+
+<!-- 코드 블록 예시 -->
+<pre><code>{{ code_example }}</code></pre>
+
+<p>{{ section_4_paragraph_2 }}</p>
+
+<!-- 내부 링크 2번째 -->
+<p>더 자세한 방법은 <a href="/{{ internal_link_2_slug }}">{{ internal_link_2_title }}</a>에서 확인하세요.</p>
+
+<h2 id="section-5">{{ h2_section_5 }}</h2>
+<!-- IMAGE: {{ image_2_description }} -->
+<figure>
+  <img alt="{{ image_2_alt_text }}" src="placeholder.jpg" loading="lazy">
+  <figcaption>{{ image_2_caption }}</figcaption>
+</figure>
+
+<p>{{ section_5_paragraph_1 }}</p>
+<p>{{ section_5_paragraph_2 }}</p>
+
+<!-- 외부 링크 2번째 -->
+<p>참고 자료: 
+  <a href="{{ external_link_2_url }}" target="_blank" rel="noopener noreferrer">{{ external_link_2_title }}</a>
+</p>
+
+<!-- ===================================================
+     STEP 7: FAQ 섹션
+     - 5~7개 Q&A (People Also Ask 타겟)
+     - itemscope/itemprop으로 Schema.org 마크업
+     - FAQPage JSON-LD와 내용 일치 필수
+     ================================================= -->
+<section class="faq" id="faq" itemscope itemtype="https://schema.org/FAQPage">
+  <h2>자주 묻는 질문</h2>
+
+  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h3 itemprop="name">{{ faq_q1 }}</h3>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <p itemprop="text">{{ faq_a1 }}</p>
+    </div>
+  </div>
+
+  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h3 itemprop="name">{{ faq_q2 }}</h3>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <p itemprop="text">{{ faq_a2 }}</p>
+    </div>
+  </div>
+
+  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h3 itemprop="name">{{ faq_q3 }}</h3>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <p itemprop="text">{{ faq_a3 }}</p>
+    </div>
+  </div>
+
+  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h3 itemprop="name">{{ faq_q4 }}</h3>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <p itemprop="text">{{ faq_a4 }}</p>
+    </div>
+  </div>
+
+  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h3 itemprop="name">{{ faq_q5 }}</h3>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <p itemprop="text">{{ faq_a5 }}</p>
+    </div>
+  </div>
+
+  <!-- 선택: 6~7번째 Q&A -->
+  <!--
+  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h3 itemprop="name">{{ faq_q6 }}</h3>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <p itemprop="text">{{ faq_a6 }}</p>
+    </div>
+  </div>
+  -->
+</section>
+
+<!-- ===================================================
+     STEP 8: 결론
+     - 핵심 3줄 요약
+     - CTA (관련 포스트 유도, 뉴스레터 등)
+     ================================================= -->
+<h2 id="conclusion">결론</h2>
+<p>이 글의 핵심 내용을 정리하면:</p>
+<ul>
+  <li>{{ conclusion_point_1 }}</li>
+  <li>{{ conclusion_point_2 }}</li>
+  <li>{{ conclusion_point_3 }}</li>
+</ul>
+
+<!-- CTA 블록 -->
+<div style="background:#e8f5e9;border-left:4px solid #34a853;padding:16px 20px;margin:20px 0;border-radius:4px;">
+  <strong>📌 다음 단계</strong>
+  <p>{{ cta_text }}</p>
+  <p>
+    👉 <a href="/{{ related_post_1_slug }}">{{ related_post_1_title }}</a><br>
+    👉 <a href="/{{ related_post_2_slug }}">{{ related_post_2_title }}</a>
+  </p>
+</div>
+
+<!-- ===================================================
+     STEP 9: Schema.org JSON-LD (두 개 필수)
+     
+     [1] Article Schema
+     [2] FAQPage Schema
+     
+     - </article> 직전에 배치
+     - FAQ 내용은 위 FAQ 섹션과 동일하게 작성
+     ================================================= -->
+
+<!-- Article Schema JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{ h1_title }}",
+  "description": "{{ meta_description }}",
+  "image": "{{ og_image_url }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ author_name }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ blog_name }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ blog_logo_url }}"
+    }
+  },
+  "datePublished": "{{ date_published }}",
+  "dateModified": "{{ date_modified }}",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ canonical_url }}"
+  },
+  "keywords": "{{ primary_keyword }}, {{ secondary_keywords_comma_separated }}"
+}
+</script>
+
+<!-- FAQPage Schema JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "{{ faq_q1 }}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ faq_a1 }}"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "{{ faq_q2 }}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ faq_a2 }}"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "{{ faq_q3 }}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ faq_a3 }}"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "{{ faq_q4 }}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ faq_a4 }}"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "{{ faq_q5 }}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ faq_a5 }}"
+      }
+    }
+  ]
+}
+</script>
+
+<!-- ===================================================
+     STEP 10: </article> 닫기
+     ================================================= -->
+</article>

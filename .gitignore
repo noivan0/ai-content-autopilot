@@ -1,0 +1,31 @@
+# 환경변수 (절대 커밋 금지)
+.env
+
+# 생성 결과물 (용량 큰 것만 제외)
+output/images/
+output/posts/
+
+# 로그, seo, topics, threads, newsletters는 포함 (추적용)
+
+# Python 캐시
+__pycache__/
+*.pyc
+*.pyo
+
+# 폰트 (바이너리, 용량 큼)
+assets/fonts/*.ttf
+assets/fonts/*.otf
+
+# 백업 파일
+*.bak
+
+# 동영상 (용량 큼)
+output/shorts/*.mp4
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

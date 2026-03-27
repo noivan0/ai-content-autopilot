@@ -1,0 +1,34 @@
+2026-03-27 03:23:56,789 [INFO] [SNS Pipeline] 시작 — 2026-03-27
+2026-03-27 03:23:56,834 [INFO] 
+[1] Claude AI 최신 기능 2025: Claude 3.7 달라진 점 완벽 정리
+2026-03-27 03:23:56,835 [INFO]   ✅ 카드 이미지 재사용: post_2026-03-27_1_card.png
+2026-03-27 03:23:56,835 [INFO]   ✅ 스레드 JSON 생성: 20260327_claude-ai-latest-features-2025_thread.json (5개 트윗)
+2026-03-27 03:23:56,835 [INFO]   ✅ 뉴스레터 아이템 수집
+2026-03-27 03:23:56,837 [INFO]   ℹ 쇼츠 생성 건너뜀 (ffmpeg 없음 또는 key_points 없음)
+2026-03-27 03:23:56,844 [INFO]   ⚠ Instagram: 건너뜀
+2026-03-27 03:23:56,844 [INFO]   ⚠ X 스레드: 건너뜀
+2026-03-27 03:23:56,844 [INFO] 
+[2] AI 에이전트 자동화 워크플로우 완벽 가이드 2025
+2026-03-27 03:23:56,845 [INFO]   ✅ 카드 이미지 재사용: post_2026-03-27_2_card.png
+2026-03-27 03:23:56,846 [INFO]   ✅ 스레드 JSON 생성: 20260327_ai-agent-automation-workflow-guide_thread.json (5개 트윗)
+2026-03-27 03:23:56,846 [INFO]   ✅ 뉴스레터 아이템 수집
+2026-03-27 03:23:56,847 [INFO]   ℹ 쇼츠 생성 건너뜀 (ffmpeg 없음 또는 key_points 없음)
+2026-03-27 03:23:56,847 [INFO]   ⚠ Instagram: 건너뜀
+2026-03-27 03:23:56,847 [INFO]   ⚠ X 스레드: 건너뜀
+2026-03-27 03:23:56,847 [INFO] 
+[3] Gemini 2.0 Flash 성능 분석: GPT-4o보다 2배 빠른 이유
+2026-03-27 03:23:56,848 [INFO]   ✅ 카드 이미지 재사용: post_2026-03-27_3_card.png
+2026-03-27 03:23:56,849 [INFO]   ✅ 스레드 JSON 생성: 20260327_gemini-2-0-flash-performance-analysis_thread.json (5개 트윗)
+2026-03-27 03:23:56,849 [INFO]   ✅ 뉴스레터 아이템 수집
+2026-03-27 03:23:56,850 [INFO]   ℹ 쇼츠 생성 건너뜀 (ffmpeg 없음 또는 key_points 없음)
+2026-03-27 03:23:56,850 [INFO]   ⚠ Instagram: 건너뜀
+2026-03-27 03:23:56,850 [INFO]   ⚠ X 스레드: 건너뜀
+2026-03-27 03:23:56,851 [INFO] 뉴스레터 HTML 생성: /root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/newsletters/weekly_20260327_newsletter.html
+2026-03-27 03:23:56,851 [INFO] 
+[SNS Pipeline] 완료 — 3개 포스트 처리
+2026-03-27 03:23:56,851 [INFO]   [1] Claude AI 최신 기능 2025: Claude 3.7 달라진 점 완
+2026-03-27 03:23:56,851 [INFO]       포맷: card, thread, newsletter | 배포: 없음
+2026-03-27 03:23:56,852 [INFO]   [2] AI 에이전트 자동화 워크플로우 완벽 가이드 2025
+2026-03-27 03:23:56,852 [INFO]       포맷: card, thread, newsletter | 배포: 없음
+2026-03-27 03:23:56,852 [INFO]   [3] Gemini 2.0 Flash 성능 분석: GPT-4o보다 2배 빠른 이
+2026-03-27 03:23:56,852 [INFO]       포맷: card, thread, newsletter | 배포: 없음

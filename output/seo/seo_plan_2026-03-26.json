@@ -1,0 +1,44 @@
+{
+  "date": "2026-03-26",
+  "seo_plans": [
+    {
+      "topic": "Claude AI 최신 기능 2025",
+      "plan": {},
+      "issues": [
+        "메타 설명 너무 짧음 (0자 < 120자 권장)",
+        "아웃라인 H2 섹션 부족 (0개 < 5개 권장)",
+        "FAQ 질문 부족 (0개 < 5개 필수)",
+        "핵심 요약 박스(summary_box) 없음",
+        "og_title 없음",
+        "og_description 없음",
+        "toc_sections 부족 (0개 < 4개 권장)"
+      ]
+    },
+    {
+      "topic": "AI 에이전트 자동화 워크플로우",
+      "plan": {},
+      "issues": [
+        "메타 설명 너무 짧음 (0자 < 120자 권장)",
+        "아웃라인 H2 섹션 부족 (0개 < 5개 권장)",
+        "FAQ 질문 부족 (0개 < 5개 필수)",
+        "핵심 요약 박스(summary_box) 없음",
+        "og_title 없음",
+        "og_description 없음",
+        "toc_sections 부족 (0개 < 4개 권장)"
+      ]
+    },
+    {
+      "topic": "Gemini 2.0 Flash 성능 분석",
+      "plan": {},
+      "issues": [
+        "메타 설명 너무 짧음 (0자 < 120자 권장)",
+        "아웃라인 H2 섹션 부족 (0개 < 5개 권장)",
+        "FAQ 질문 부족 (0개 < 5개 필수)",
+        "핵심 요약 박스(summary_box) 없음",
+        "og_title 없음",
+        "og_description 없음",
+        "toc_sections 부족 (0개 < 4개 권장)"
+      ]
+    }
+  ]
+}

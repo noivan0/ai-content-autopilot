@@ -1,0 +1,54 @@
+2026-03-26 01:58:13,773 [INFO] [SNS Pipeline] 시작 — 2026-03-26
+2026-03-26 01:58:13,783 [INFO] 
+[1] ChatGPT o3 완벽 분석: 2025년 가장 강력한 AI 모델의 실력은?
+2026-03-26 01:58:13,861 [INFO]   ✅ 카드 이미지 생성: 20260326_chatgpt-o3-analysis_card.png
+2026-03-26 01:58:13,862 [INFO]   ✅ 스레드 JSON 생성: 20260326_chatgpt-o3-analysis_thread.json (5개 트윗)
+2026-03-26 01:58:13,862 [INFO]   ✅ 뉴스레터 아이템 수집
+2026-03-26 01:58:49,239 [INFO]   ✅ 쇼츠 생성: 20260326_chatgpt-o3-analysis_shorts.mp4
+2026-03-26 01:58:49,240 [INFO]   ⚠ Instagram: 건너뜀
+2026-03-26 01:58:49,240 [INFO]   ⚠ X 스레드: 건너뜀
+2026-03-26 01:58:49,240 [INFO]   ⚠ YouTube: 건너뜀
+2026-03-26 01:58:49,241 [INFO] 뉴스레터 HTML 생성: /root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/newsletters/weekly_20260326_newsletter.html
+2026-03-26 01:58:49,242 [INFO] 
+[SNS Pipeline] 완료 — 1개 포스트 처리
+2026-03-26 01:58:49,242 [INFO]   [1] ChatGPT o3 완벽 분석: 2025년 가장 강력한 AI 모델의 실력
+2026-03-26 01:58:49,242 [INFO]       포맷: card, thread, shorts, newsletter | 배포: 없음
+2026-03-26 01:59:36,925 [INFO] [SNS Pipeline] 시작 — 2026-03-26
+2026-03-26 01:59:36,935 [INFO] 
+[1] ChatGPT o3 완벽 분석: 2025년 가장 강력한 AI 모델의 실력은?
+2026-03-26 01:59:37,003 [INFO]   ✅ 카드 이미지 생성: 20260326_chatgpt-o3-analysis_card.png
+2026-03-26 01:59:37,004 [INFO]   ✅ 스레드 JSON 생성: 20260326_chatgpt-o3-analysis_thread.json (5개 트윗)
+2026-03-26 01:59:37,004 [INFO]   ✅ 뉴스레터 아이템 수집
+2026-03-26 02:00:08,498 [INFO]   ✅ 쇼츠 생성: 20260326_chatgpt-o3-analysis_shorts.mp4
+2026-03-26 02:00:08,499 [INFO]   ⚠ Instagram: 건너뜀
+2026-03-26 02:00:08,499 [INFO]   ⚠ X 스레드: 건너뜀
+2026-03-26 02:00:08,499 [INFO]   ⚠ YouTube: 건너뜀
+2026-03-26 02:00:08,500 [INFO] 뉴스레터 HTML 생성: /root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/newsletters/weekly_20260326_newsletter.html
+2026-03-26 02:00:08,501 [INFO] 
+[SNS Pipeline] 완료 — 1개 포스트 처리
+2026-03-26 02:00:08,501 [INFO]   [1] ChatGPT o3 완벽 분석: 2025년 가장 강력한 AI 모델의 실력
+2026-03-26 02:00:08,501 [INFO]       포맷: card, thread, shorts, newsletter | 배포: 없음
+2026-03-26 07:48:12,362 [INFO] [SNS Pipeline] 시작 — 2026-03-26
+2026-03-26 07:48:12,367 [INFO] 
+[1] Claude AI 최신 기능 2025
+2026-03-26 07:48:12,367 [INFO]   ✅ 카드 이미지 재사용: post_2026-03-26_1_card.png
+2026-03-26 07:48:12,368 [INFO]   ✅ 스레드 JSON 생성: 20260326__thread.json (5개 트윗)
+2026-03-26 07:48:12,368 [INFO]   ✅ 뉴스레터 아이템 수집
+2026-03-26 07:48:12,369 [INFO]   ℹ 쇼츠 생성 건너뜀 (ffmpeg 없음 또는 key_points 없음)
+2026-03-26 07:48:12,369 [INFO]   ⚠ Instagram: 건너뜀
+2026-03-26 07:48:12,369 [INFO]   ⚠ X 스레드: 건너뜀
+2026-03-26 07:48:12,369 [INFO] 
+[3] Gemini 2.0 Flash 성능 분석
+2026-03-26 07:48:12,369 [INFO]   ✅ 카드 이미지 재사용: post_2026-03-26_3_card.png
+2026-03-26 07:48:12,370 [INFO]   ✅ 스레드 JSON 생성: 20260326__thread.json (5개 트윗)
+2026-03-26 07:48:12,370 [INFO]   ✅ 뉴스레터 아이템 수집
+2026-03-26 07:48:12,370 [INFO]   ℹ 쇼츠 생성 건너뜀 (ffmpeg 없음 또는 key_points 없음)
+2026-03-26 07:48:12,370 [INFO]   ⚠ Instagram: 건너뜀
+2026-03-26 07:48:12,371 [INFO]   ⚠ X 스레드: 건너뜀
+2026-03-26 07:48:12,371 [INFO] 뉴스레터 HTML 생성: /root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/newsletters/weekly_20260326_newsletter.html
+2026-03-26 07:48:12,371 [INFO] 
+[SNS Pipeline] 완료 — 2개 포스트 처리
+2026-03-26 07:48:12,371 [INFO]   [1] Claude AI 최신 기능 2025
+2026-03-26 07:48:12,371 [INFO]       포맷: card, thread, newsletter | 배포: 없음
+2026-03-26 07:48:12,371 [INFO]   [3] Gemini 2.0 Flash 성능 분석
+2026-03-26 07:48:12,371 [INFO]       포맷: card, thread, newsletter | 배포: 없음

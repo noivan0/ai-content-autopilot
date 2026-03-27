@@ -1,0 +1,51 @@
+{
+  "date": "2026-03-27",
+  "results": [
+    {
+      "post_num": 1,
+      "title": "Claude AI 최신 기능 2025: Claude 3.7 달라진 점 완벽 정리",
+      "formats": {
+        "card": "/root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/images/post_2026-03-27_1_card.png",
+        "thread": "/root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/threads/20260327_claude-ai-latest-features-2025_thread.json",
+        "shorts": null,
+        "newsletter": true
+      },
+      "distributed": {
+        "instagram": false,
+        "x_thread": false,
+        "youtube": false
+      }
+    },
+    {
+      "post_num": 2,
+      "title": "AI 에이전트 자동화 워크플로우 완벽 가이드 2025",
+      "formats": {
+        "card": "/root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/images/post_2026-03-27_2_card.png",
+        "thread": "/root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/threads/20260327_ai-agent-automation-workflow-guide_thread.json",
+        "shorts": null,
+        "newsletter": true
+      },
+      "distributed": {
+        "instagram": false,
+        "x_thread": false,
+        "youtube": false
+      }
+    },
+    {
+      "post_num": 3,
+      "title": "Gemini 2.0 Flash 성능 분석: GPT-4o보다 2배 빠른 이유",
+      "formats": {
+        "card": "/root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/images/post_2026-03-27_3_card.png",
+        "thread": "/root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/threads/20260327_gemini-2-0-flash-performance-analysis_thread.json",
+        "shorts": null,
+        "newsletter": true
+      },
+      "distributed": {
+        "instagram": false,
+        "x_thread": false,
+        "youtube": false
+      }
+    }
+  ],
+  "newsletter_html": "/root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/newsletters/weekly_20260327_newsletter.html"
+}

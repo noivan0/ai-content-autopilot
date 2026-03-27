@@ -1,0 +1,22 @@
+{
+  "date": "2026-03-26",
+  "images_generated": 2,
+  "posts": [
+    {
+      "post_num": 1,
+      "title": "Claude AI 최신 기능 2025",
+      "thumbnail": "/root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/images/post_2026-03-26_1_thumb.png",
+      "card": "/root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/images/post_2026-03-26_1_card.png",
+      "thumbnail_url": "",
+      "html_updated": false
+    },
+    {
+      "post_num": 3,
+      "title": "Gemini 2.0 Flash 성능 분석",
+      "thumbnail": "/root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/images/post_2026-03-26_3_thumb.png",
+      "card": "/root/.openclaw/workspace/paperclip-company/projects/p004-blog-automation/output/images/post_2026-03-26_3_card.png",
+      "thumbnail_url": "",
+      "html_updated": true
+    }
+  ]
+}
