@@ -63,6 +63,42 @@ REDDIT_SOURCES = [
     {"subreddit": "AIdev",             "domain_hint": "AI 코딩 개발"},
 ]
 
+# ── X(트위터) 수집 대상 계정 ─────────────────────────────────────────────────
+# 공식 계정 + 영향력 있는 AI 연구자/인플루언서
+X_AI_ACCOUNTS = [
+    # 기업 공식
+    {"handle": "OpenAI",        "domain": "ChatGPT OpenAI"},
+    {"handle": "AnthropicAI",   "domain": "Claude Anthropic"},
+    {"handle": "GoogleDeepMind","domain": "Gemini Google AI"},
+    {"handle": "MetaAI",        "domain": "Llama Meta AI"},
+    {"handle": "MistralAI",     "domain": "Mistral AI"},
+    {"handle": "huggingface",   "domain": "HuggingFace 오픈소스"},
+    {"handle": "deepseek_ai",   "domain": "DeepSeek AI 모델"},
+    {"handle": "perplexity_ai", "domain": "Perplexity AI"},
+    {"handle": "xai",           "domain": "Grok xAI"},
+    {"handle": "runwayml",      "domain": "Runway Gen AI 영상"},
+    {"handle": "ElevenLabsio",  "domain": "ElevenLabs AI 음성"},
+    {"handle": "StabilityAI",   "domain": "Stable Diffusion 이미지생성"},
+    {"handle": "midjourney",    "domain": "Midjourney AI 아트"},
+    # AI 연구자/인플루언서
+    {"handle": "karpathy",      "domain": "딥러닝 머신러닝"},
+    {"handle": "sama",          "domain": "ChatGPT OpenAI"},
+    {"handle": "ylecun",        "domain": "딥러닝 머신러닝"},
+    {"handle": "GaryMarcus",    "domain": "AI 윤리 편향"},
+    {"handle": "emostaque",     "domain": "Stable Diffusion 이미지생성"},
+    {"handle": "natfriedman",   "domain": "AI 코딩 개발"},
+    {"handle": "drmichaellevin","domain": "AI 논문 연구"},
+    {"handle": "aidan_mclau",   "domain": "AI 스타트업 투자"},
+]
+
+# Nitter 인스턴스 목록 (순서대로 시도, 실패 시 다음으로)
+NITTER_INSTANCES = [
+    "https://nitter.poast.org",
+    "https://nitter.privacydev.net",
+    "https://nitter.net",
+    "https://nitter.1d4.us",
+]
+
 # 광고성 필터 키워드
 AD_FILTER_WORDS = [
     "buy", "sale", "discount", "promo", "coupon", "offer", "deal",
@@ -338,13 +374,85 @@ def collect_official_blog_angles() -> dict:
     return result
 
 
+def fetch_x_account_tweets(handle: str, max_tweets: int = 10) -> list:
+    """
+    Nitter RSS로 X(트위터) 계정 최근 트윗 수집.
+    NITTER_INSTANCES를 순서대로 시도 — 성공하면 즉시 반환, 전부 실패 시 빈 리스트.
+    """
+    for base in NITTER_INSTANCES:
+        rss_url = f"{base}/{handle}/rss"
+        try:
+            req = urllib.request.Request(
+                rss_url,
+                headers={"User-Agent": "Mozilla/5.0 research-bot/1.0"}
+            )
+            with urllib.request.urlopen(req, timeout=8) as r:
+                xml = r.read().decode("utf-8", errors="replace")
+
+            items = re.findall(r"<item>(.*?)</item>", xml, re.DOTALL)
+            results = []
+            for item in items[:max_tweets]:
+                title_m = re.search(r"<title>(.*?)</title>", item, re.DOTALL)
+                link_m  = re.search(r"<link>(.*?)</link>",   item)
+                if not title_m:
+                    continue
+                raw = title_m.group(1)
+                # CDATA 처리
+                raw = re.sub(r"<!\[CDATA\[(.*?)\]\]>", r"\1", raw, flags=re.DOTALL)
+                # HTML 엔티티
+                raw = raw.replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">").replace("&quot;", '"')
+                # RT, 멘션, URL, 특수문자 제거
+                raw = re.sub(r"RT @\w+:", "", raw)
+                raw = re.sub(r"@\w+", "", raw)
+                raw = re.sub(r"https?://\S+", "", raw)
+                raw = re.sub(r"#\w+", "", raw)
+                raw = re.sub(r"[^\w\s가-힣.,!?%\-]", " ", raw)
+                raw = re.sub(r"\s+", " ", raw).strip()
+                if len(raw) >= 15:
+                    results.append({
+                        "title": raw,
+                        "url":   link_m.group(1).strip() if link_m else "",
+                    })
+
+            if results:
+                return results  # 성공한 인스턴스에서 즉시 반환
+        except Exception:
+            continue  # 다음 Nitter 인스턴스 시도
+
+    return []
+
+
+def fetch_x_ai_accounts() -> dict:
+    """
+    X_AI_ACCOUNTS 전체 계정에서 트윗 수집 → 도메인별 앵글 반환.
+    반환: {domain: [angle, ...]}
+    """
+    result = {}
+    for acc in X_AI_ACCOUNTS:
+        handle = acc["handle"]
+        domain = acc["domain"]
+        tweets = fetch_x_account_tweets(handle, max_tweets=10)
+        angles = []
+        for t in tweets:
+            angle = extract_angle(t["title"], domain)
+            if angle:
+                angles.append(angle)
+        if angles:
+            result[domain] = result.get(domain, []) + angles
+            print(f"    [X/@{handle}] {len(angles)}개 앵글 → {domain[:30]}")
+        else:
+            print(f"    [X/@{handle}] 수집 없음 (nitter 차단 or 빈 피드)")
+        time.sleep(0.5)
+    return result
+
+
 def run():
     """
     전체 실행:
     1. 이전 주간 파일 로드 (기존 앵글 파악)
-    2. 도메인별 신규 앵글 수집
-    3. 기존 + 신규 병합 (신규를 앞에, 최대 50개/도메인)
-    4. output/angles/topic_angles_YYYY-WW.json 저장
+    2. 공식 블로그 RSS + X(트위터) 계정 수집
+    3. 도메인별 신규 앵글 수집 (GNews/Brave/HN/Reddit)
+    4. 전체 병합 후 저장
     """
     import sys
     os.makedirs(OUTPUT, exist_ok=True)
@@ -369,12 +477,20 @@ def run():
         print(f"  이전 주 파일 로드: {prev_path} ({len(existing)}개 도메인)")
 
     # 공식 블로그 앵글 수집
-    print("\n[1/3] 공식 블로그 RSS 수집 중...")
+    print("\n[1/4] 공식 블로그 RSS 수집 중...")
     blog_angles = collect_official_blog_angles()
+
+    # X(트위터) 계정 앵글 수집
+    print(f"\n[2/4] X(트위터) {len(X_AI_ACCOUNTS)}개 계정 수집 중...")
+    x_angles = fetch_x_ai_accounts()
+    # blog_angles에 x_angles 병합
+    for domain, angles in x_angles.items():
+        blog_angles[domain] = blog_angles.get(domain, []) + angles
+    print(f"  X 수집 완료: {sum(len(v) for v in x_angles.values())}개 앵글")
 
     # 도메인별 앵글 수집 (AI_DOMAINS 전체)
     from agents.research import AI_DOMAINS, TOPIC_SUBTYPES
-    print(f"\n[2/3] 전체 {len(AI_DOMAINS)}개 도메인 앵글 수집 중...")
+    print(f"\n[3/4] 전체 {len(AI_DOMAINS)}개 도메인 앵글 수집 중 (GNews/Brave/HN/Reddit)...")
     fresh_angles = {}
     for i, domain in enumerate(AI_DOMAINS, 1):
         print(f"  [{i:2d}/{len(AI_DOMAINS)}] {domain[:40]}")
@@ -394,7 +510,7 @@ def run():
         time.sleep(0.5)
 
     # 병합: 신규(fresh) + 기존(existing) + 정적 fallback
-    print("\n[3/3] 병합 및 저장 중...")
+    print("\n[4/4] 병합 및 저장 중...")
     merged = {}
     for domain in AI_DOMAINS:
         fresh  = fresh_angles.get(domain, [])
@@ -414,7 +530,7 @@ def run():
     result = {
         "week":          YEAR_WW,
         "generated":     datetime.datetime.utcnow().isoformat(),
-        "sources":       ["gnews", "brave", "hackernews", "reddit", "official_blogs"],
+        "sources":       ["gnews", "brave", "hackernews", "reddit", "official_blogs", "x_twitter"],
         "domain_count":  len(merged),
         "total_angles":  sum(len(v) for v in merged.values()),
         "angles":        merged,
