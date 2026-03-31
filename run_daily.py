@@ -1,7 +1,13 @@
 """
-P004 — 메인 실행 스크립트
-매일 자동 실행: Research → SEO → Writer → SEO검증 → Publisher
-개선: Step 3.5 SEO 자동 검증 추가
+P005 — 메인 실행 스크립트
+매일 자동 실행: Research → SEO(병렬) → Writer(병렬) → ImageGen(병렬) → SEO검증 → Publisher
+
+변경 이력:
+- v2 (2026-03-30): 병렬 처리 도입 (18분 → ~6분 예상)
+  * SEO 분석 3개 동시 실행
+  * 포스트 작성 3개 동시 실행 (가장 큰 병목)
+  * 이미지 생성 3개 동시 실행
+  * --no-parallel 플래그로 순차 실행 복귀 가능
 """
 import os, sys, json, datetime, time, traceback, re
 
@@ -21,13 +27,19 @@ def load_env():
 
 load_env()
 
-from agents.research        import run as run_research
-from agents.seo             import run as run_seo
-from agents.writer          import run as run_writer
-from agents.image_gen       import run as run_image_gen
-from agents.sns_pipeline    import run as run_sns_pipeline
-from agents.publisher       import run as run_publisher
+from agents.research     import run as run_research
+from agents.seo          import run as run_seo
+from agents.writer       import run as run_writer, check_seo_structure, inject_missing_seo_sections
+from agents.image_gen    import run as run_image_gen
+from agents.sns_pipeline import run as run_sns_pipeline
+from agents.publisher    import run as run_publisher
+from agents.parallel     import run_seo_parallel, run_writer_parallel, run_image_parallel
+from agents.quality      import run_quality_check
+from agents.viral        import run as run_viral
 from agents.angle_refresher import run as run_angle_refresh
+
+# 병렬 처리 기본 활성화 (--no-parallel로 비활성화 가능)
+USE_PARALLEL = "--no-parallel" not in sys.argv
 
 TODAY = datetime.date.today().isoformat()
 LOG   = os.path.join(BASE, "output", "logs", f"daily_run_{TODAY}.log")
@@ -43,37 +55,18 @@ def log(msg):
 
 
 def validate_post_seo(html: str, meta: dict) -> list:
-    """SEO 구조 자동 검증 (Step 3.5)
-    
-    Args:
-        html: 생성된 포스트 HTML 전문
-        meta: 포스트 메타 데이터 (char_count 등 포함)
+    """SEO 구조 자동 검증 (Step 3.7)
+    writer.py의 check_seo_structure를 기반으로 확장 검증.
     
     Returns:
         issues: 발견된 SEO 문제 리스트 (비어있으면 통과)
     """
-    issues = []
+    # writer.py의 핵심 4개 구조 검증 (동일 기준)
+    issues = list(check_seo_structure(html))
 
-    # 필수 구조 검증
+    # 추가 품질 검증
     if "<h1" not in html:
         issues.append("H1 없음")
-
-    if "summary-box" not in html:
-        issues.append("핵심 요약 박스 없음 (summary-box 클래스 미존재)")
-
-    if 'class="toc"' not in html and "class='toc'" not in html:
-        issues.append("ToC 없음 (toc 클래스 미존재)")
-
-    if 'class="faq"' not in html and "class='faq'" not in html:
-        issues.append("FAQ 섹션 없음 (faq 클래스 미존재)")
-
-    if "application/ld+json" not in html:
-        issues.append("Schema JSON-LD 없음")
-    else:
-        # Article + FAQPage 두 개 모두 있는지 확인
-        ld_count = html.count("application/ld+json")
-        if ld_count < 2:
-            issues.append(f"Schema JSON-LD 1개만 존재 (Article + FAQPage 두 개 필요)")
 
     # 외부 링크 수 확인
     external_links = html.count('target="_blank"')
@@ -85,13 +78,14 @@ def validate_post_seo(html: str, meta: dict) -> list:
     if char_count < 3000:
         issues.append(f"글자수 부족 ({char_count:,}자 < 3,000자 필수)")
 
-    # 이미지 alt 텍스트 확인 (alt="" 빈 값 체크)
+    # 이미지 alt 텍스트 확인
     empty_alts = len(re.findall(r'<img[^>]*alt\s*=\s*["\']["\']', html))
     if empty_alts > 0:
         issues.append(f"빈 alt 텍스트 이미지 {empty_alts}개 발견")
 
-    # 내부 링크 확인 (상대 경로 링크 기준)
-    internal_links = len(re.findall(r'href=["\']/', html)) + len(re.findall(r'href=["\'][^http][^:][^/]', html))
+    # 내부 링크 확인
+    internal_links = (len(re.findall(r'href=["\']/', html)) +
+                      len(re.findall(r'href=["\'][^http][^:][^/]', html)))
     if internal_links < 2:
         issues.append(f"내부 링크 부족 ({internal_links}개 < 2개 권장)")
 
@@ -189,13 +183,18 @@ def run_pipeline(publish: bool = True):
             log("  ⚠ Research 실패 — 파이프라인 중단")
             return results
 
-    # 2. SEO
-    log("\n[Step 2/4] SEO Agent")
+    # 2. SEO (병렬 or 순차)
+    mode_label = "병렬" if USE_PARALLEL else "순차"
+    log(f"\n[Step 2/4] SEO Agent ({mode_label})")
     t0 = time.time()
     try:
-        seo = run_seo(topics)
+        seo = run_seo_parallel(topics) if USE_PARALLEL else run_seo(topics)
         results["seo"] = "ok"
-        log(f"  완료 ({time.time()-t0:.1f}s) — {len(seo.get('seo_plans',[]))}개 SEO 계획")
+        plans = seo.get('seo_plans', [])
+        log(f"  완료 ({time.time()-t0:.1f}s) — {len(plans)}개 SEO 계획")
+        for i, p in enumerate(plans, 1):
+            plan = p.get("plan", {})
+            log(f"    [{i}] {plan.get('title','')[:50]} | FAQ:{len(plan.get('faq_questions',[]))}개 섹션:{len(plan.get('outline',[]))}개 ✅")
     except Exception as e:
         log(f"  ❌ 실패: {e}")
         traceback.print_exc()
@@ -203,28 +202,29 @@ def run_pipeline(publish: bool = True):
         log("  ⚠ SEO 실패 — 파이프라인 중단 (SEO 없이 Writer 진행 불가)")
         return results
 
-    # 3. Writer
-    log("\n[Step 3/4] Writer Agent")
+    # 3. Writer (병렬 or 순차)
+    log(f"\n[Step 3/4] Writer Agent ({mode_label})")
     t0 = time.time()
     try:
-        write = run_writer(topics, seo)
+        write = run_writer_parallel(topics, seo) if USE_PARALLEL else run_writer(topics, seo)
         results["writer"] = "ok"
         ok_posts = [p for p in write.get("posts", []) if p.get("char_count", 0) >= 3000]
         log(f"  완료 ({time.time()-t0:.1f}s) — {len(ok_posts)}/3 포스트 3,000자 이상")
         for p in write.get("posts", []):
-            log(f"    [{p['post_num']}] {p['title'][:50]} ({p['char_count']:,}자)")
+            seo_tag = "✅" if not p.get("seo_issues") else "⚠"
+            log(f"    [{p['post_num']}] {seo_tag} {p['title'][:45]} ({p['char_count']:,}자)")
     except Exception as e:
         log(f"  ❌ 실패: {e}")
         traceback.print_exc()
         results["writer"] = f"error: {e}"
         return results
 
-    # 3.5. 이미지 생성
+    # 3.5. 이미지 생성 (병렬 or 순차)
     img_result = None
-    log("\n[Step 3.5] Image Gen Agent")
+    log(f"\n[Step 3.5] Image Gen Agent ({mode_label})")
     t0 = time.time()
     try:
-        img_result = run_image_gen(write)
+        img_result = run_image_parallel(write) if USE_PARALLEL else run_image_gen(write)
         results["image_gen"] = f"{img_result.get('images_generated', 0)}개 생성"
         log(f"  완료 ({time.time()-t0:.1f}s) — {img_result.get('images_generated', 0)}개 포스트 이미지 생성")
         for img_post in img_result.get("posts", []):
@@ -290,12 +290,47 @@ def run_pipeline(publish: bool = True):
     log(f"  SEO 검증 완료 — {passed_count}/{total_count} 통과 → {val_log_path}")
     results["seo_validation"] = f"{passed_count}/{total_count} 통과"
 
-    # 3.9. SNS 파이프라인 (변환 + 배포)
+    # 3.8. 콘텐츠 품질 평가
+    log("\n[Step 3.8] 콘텐츠 품질 평가")
+    try:
+        quality = run_quality_check(write, seo)
+        summary = quality.get("summary", {})
+        avg     = summary.get("avg_score", 0)
+        grades  = " / ".join(summary.get("grades", []))
+        log(f"  완료 — 평균 {avg:.1f}점 | 등급: {grades}")
+        results["quality"] = f"평균 {avg:.1f}점 ({grades})"
+    except Exception as e:
+        log(f"  ⚠ 품질 평가 실패 (파이프라인 계속): {e}")
+        results["quality"] = f"error: {e}"
+
+    # 3.85. Viral Engine (트렌드 감지 + 후킹 스크립트)
+    viral_data = {}
+    log("\n[Step 3.85] Viral Engine — 트렌드 감지 + 후킹 스크립트")
+    t0 = time.time()
+    try:
+        research_topics = topics.get("topics", []) if topics else []
+        viral_result = run_viral(write, research_topics)
+        viral_posts  = viral_result.get("posts", [])
+        # post_num → viral 데이터 매핑
+        viral_data = {p["post_num"]: p for p in viral_posts if "post_num" in p}
+
+        trend_count = len(viral_result.get("trends", {}).get("google_trends", []))
+        hook_count  = sum(1 for p in viral_posts if not p.get("error"))
+        log(f"  완료 ({time.time()-t0:.1f}s) — 트렌드:{trend_count}개 수집 | 후킹스크립트:{hook_count}개 생성")
+        for p in viral_posts:
+            if not p.get("error"):
+                log(f"    [{p['post_num']}] {p.get('hook_type','?')}형 | 후킹률:{p.get('hook_rate','?')} | 훅: {p.get('hook_text','')[:35]}")
+        results["viral"] = f"트렌드:{trend_count} 스크립트:{hook_count}"
+    except Exception as e:
+        log(f"  ⚠ Viral Engine 실패 (파이프라인 계속): {e}")
+        results["viral"] = f"error: {e}"
+
+    # 3.9. SNS 파이프라인 (변환 + 배포, viral_data 전달)
     log("\n[Step 3.9] SNS Pipeline Agent")
     t0 = time.time()
     try:
         sns = run_sns_pipeline(write, img_result)
-        sns_results = sns.get("results", [])
+        sns_results  = sns.get("results", [])
         ok_threads   = sum(1 for r in sns_results if r.get("formats", {}).get("thread"))
         ok_newsletter = bool(sns.get("newsletter_html"))
         ok_insta     = sum(1 for r in sns_results if r.get("distributed", {}).get("instagram"))
@@ -305,6 +340,38 @@ def run_pipeline(publish: bool = True):
         log(f"  완료 ({time.time()-t0:.1f}s) — 스레드:{ok_threads}개 뉴스레터:{'✅' if ok_newsletter else '⚠'} IG:{ok_insta} X:{ok_x} YT:{ok_yt}")
         if sns.get("newsletter_html"):
             log(f"  뉴스레터: {os.path.basename(sns['newsletter_html'])}")
+
+        # Viral 후킹 캡션으로 Instagram/YouTube 재발행 (viral_data 있을 때)
+        token_exists = os.path.exists(os.path.join(BASE, 'token.json'))
+        if viral_data and (os.getenv("INSTAGRAM_ACCESS_TOKEN") or token_exists):
+            from agents.distributors.instagram_bot import publish as ig_publish
+            from agents.distributors.youtube_bot   import publish_shorts as yt_publish
+            from agents.distributors.image_host    import get_public_url
+
+            for post_meta in write.get("posts", []):
+                pnum     = post_meta.get("post_num", 1)
+                vd       = viral_data.get(pnum)
+                if not vd:
+                    continue
+
+                # Instagram: 카드 이미지 + 후킹 캡션
+                img_info = next((p for p in (img_result or {}).get("posts", []) if p.get("post_num") == pnum), {})
+                card_path = img_info.get("card", "")
+                if card_path and os.getenv("INSTAGRAM_ACCESS_TOKEN"):
+                    ok = ig_publish(post_meta, image_path_or_url=card_path, viral_data=vd)
+                    log(f"  IG [{pnum}]: {'✅ 발행' if ok else '❌ 실패'}")
+
+                # YouTube Shorts: 영상 + 후킹 제목 + 자막
+                shorts_dir  = BASE / "output" / "shorts"
+                today_str   = TODAY
+                slug        = post_meta.get("slug", f"post-{pnum}")
+                video_path  = str(shorts_dir / f"{today_str}_{slug}_shorts.mp4")
+                srt_path    = str(BASE / "output" / "viral" / f"post_{today_str}_{pnum}.srt")
+                thumb_path  = img_info.get("thumbnail", "")
+                if os.path.exists(video_path) and os.getenv("YOUTUBE_CHANNEL_ID"):
+                    ok = yt_publish(post_meta, video_path, thumb_path, srt_path, viral_data=vd)
+                    log(f"  YT [{pnum}]: {'✅ 발행' if ok else '❌ 실패'}")
+
     except Exception as e:
         log(f"  ⚠ SNS 파이프라인 실패 (파이프라인 계속): {e}")
         results["sns_pipeline"] = f"error: {e}"

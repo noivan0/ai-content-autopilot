@@ -1,0 +1,104 @@
+name: Daily Blog Post
+
+on:
+  # 매일 한국시간 오전 9시 (UTC 00:00)
+  schedule:
+    - cron: '0 0 * * *'
+  # 수동 실행 (테스트용)
+  workflow_dispatch:
+    inputs:
+      no_publish:
+        description: '발행 없이 리서치/작성만 실행 (dry-run)'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+      force_angle_refresh:
+        description: '앵글 강제 갱신 (--force)'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install anthropic requests pillow moviepy gtts || true
+          # ffmpeg (YouTube Shorts 영상 생성용)
+          sudo apt-get install -y ffmpeg 2>/dev/null || true
+
+      - name: Restore angles cache
+        uses: actions/cache@v4
+        with:
+          path: output/angles
+          key: angles-${{ env.YEAR_WW }}
+          restore-keys: |
+            angles-
+
+      - name: Set week variable
+        run: echo "YEAR_WW=$(date +%Y-W%V)" >> $GITHUB_ENV
+
+      - name: Run daily pipeline
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          BRAVE_API_KEY: ${{ secrets.BRAVE_API_KEY }}
+          BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_BLOG_ID }}
+          BLOGGER_ACCESS_TOKEN: ${{ secrets.BLOGGER_ACCESS_TOKEN }}
+          BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
+          IMGBB_API_KEY: ${{ secrets.IMGBB_API_KEY }}
+          BLOG_URL: ${{ secrets.BLOG_URL }}
+          ANTHROPIC_MODEL: claude-opus-4-5
+        run: |
+          # 강제 앵글 갱신 옵션
+          if [ "${{ github.event.inputs.force_angle_refresh }}" = "true" ]; then
+            python3 -m agents.angle_refresher --force
+          fi
+
+          # 발행 여부
+          if [ "${{ github.event.inputs.no_publish }}" = "true" ]; then
+            python3 run_daily.py --no-publish
+          else
+            python3 run_daily.py
+          fi
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-logs-${{ env.TODAY }}
+          path: |
+            output/logs/
+            output/topics/
+          retention-days: 7
+
+      - name: Set today variable
+        if: always()
+        run: echo "TODAY=$(date +%Y-%m-%d)" >> $GITHUB_ENV
+
+      - name: Save angles cache
+        if: always()
+        uses: actions/cache@v4
+        with:
+          path: output/angles
+          key: angles-${{ env.YEAR_WW }}
