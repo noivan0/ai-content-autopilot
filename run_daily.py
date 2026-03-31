@@ -21,12 +21,13 @@ def load_env():
 
 load_env()
 
-from agents.research     import run as run_research
-from agents.seo          import run as run_seo
-from agents.writer       import run as run_writer
-from agents.image_gen    import run as run_image_gen
-from agents.sns_pipeline import run as run_sns_pipeline
-from agents.publisher    import run as run_publisher
+from agents.research        import run as run_research
+from agents.seo             import run as run_seo
+from agents.writer          import run as run_writer
+from agents.image_gen       import run as run_image_gen
+from agents.sns_pipeline    import run as run_sns_pipeline
+from agents.publisher       import run as run_publisher
+from agents.angle_refresher import run as run_angle_refresh
 
 TODAY = datetime.date.today().isoformat()
 LOG   = os.path.join(BASE, "output", "logs", f"daily_run_{TODAY}.log")
@@ -151,6 +152,22 @@ def run_pipeline(publish: bool = True):
 
     results = {}
     start_total = time.time()
+
+    # Step 0: 주간 앵글 갱신 (월요일 또는 앵글 파일 없을 때)
+    angles_dir = os.path.join(BASE, "output", "angles")
+    year_ww    = datetime.date.today().strftime("%Y-W%V")
+    angle_file = os.path.join(angles_dir, f"topic_angles_{year_ww}.json")
+    is_monday  = datetime.date.today().weekday() == 0
+
+    if is_monday or not os.path.exists(angle_file):
+        log("Step 0: 주간 토픽 앵글 갱신 중...")
+        try:
+            run_angle_refresh()
+            log("Step 0: 앵글 갱신 완료")
+        except Exception as e:
+            log(f"Step 0 ERROR (비치명적, 계속 진행): {e}")
+    else:
+        log(f"Step 0: 앵글 파일 존재 ({angle_file}), 갱신 스킵")
 
     # 1. Research
     log("\n[Step 1/4] Research Agent")

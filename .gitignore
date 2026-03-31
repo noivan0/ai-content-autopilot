@@ -5,6 +5,10 @@
 output/images/
 output/posts/
 
+# output/ 중 angles는 버전 관리 포함 (주간 앵글 추적 대상)
+!output/angles/
+!output/angles/*.json
+
 # 로그, seo, topics, threads, newsletters는 포함 (추적용)
 
 # Python 캐시

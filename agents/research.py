@@ -1063,6 +1063,33 @@ def get_todays_domains() -> list:
     return rotated[:DAILY_DOMAINS_COUNT]
 
 
+def load_weekly_angles() -> dict:
+    """
+    이번 주 동적 앵글 파일 로드.
+    없으면 지난 주 파일 시도, 그것도 없으면 정적 TOPIC_SUBTYPES 반환.
+    """
+    angles_dir = os.path.join(BASE, "output", "angles")
+
+    # 이번 주 → 지난 주 → 2주 전 순서로 탐색
+    for delta in [0, 7, 14]:
+        target_date = datetime.date.today() - datetime.timedelta(days=delta)
+        year_ww = target_date.strftime("%Y-W%V")
+        path = os.path.join(angles_dir, f"topic_angles_{year_ww}.json")
+        if os.path.exists(path):
+            try:
+                data = json.load(open(path, encoding="utf-8"))
+                angles = data.get("angles", {})
+                if angles:
+                    print(f"  [앵글] 주간 파일 로드: {path} (총 {data.get('total_angles',0)}개)")
+                    return angles
+            except Exception as e:
+                print(f"  [앵글 ERR] {path}: {e}")
+
+    # 전부 없으면 정적 fallback
+    print("  [앵글] 주간 파일 없음 → 정적 TOPIC_SUBTYPES 사용")
+    return TOPIC_SUBTYPES
+
+
 # ── 유틸 ─────────────────────────────────────────────────────────────────────
 
 def http_get(url, headers=None, timeout=12):
@@ -1448,6 +1475,9 @@ def generate_trending_queries() -> list:
     queries = []
     print("  [트렌드 수집] 도메인별 최신 뉴스 기반 쿼리 생성...")
 
+    # 주간 앵글 파일 로드 (한 번만)
+    weekly_angles = load_weekly_angles()
+
     # arXiv 주간 논문 후보 먼저 추가
     arxiv_candidates = fetch_arxiv_weekly()
     queries.extend(arxiv_candidates)
@@ -1472,9 +1502,9 @@ def generate_trending_queries() -> list:
                         "pubdate": n.get("pubdate", ""),
                     })
 
-        # ── 세부 토픽 앵글 — TOPIC_SUBTYPES 기반 구체 쿼리 생성 ──
+        # ── 세부 토픽 앵글 — 동적 주간 앵글 우선, 없으면 TOPIC_SUBTYPES fallback ──
         # 도메인의 세부 토픽 목록에서 날짜+도메인 seed로 2개 선택
-        subtypes = TOPIC_SUBTYPES.get(domain, [])
+        subtypes = weekly_angles.get(domain, TOPIC_SUBTYPES.get(domain, []))
         if subtypes:
             # seed: 날짜 + 도메인 조합 → 매일 다른 앵글 선택
             seed_str = f"{TODAY}:{domain}"
