@@ -115,6 +115,50 @@ AI_DOMAINS = [
     "SK AI 투자",
     "KT AI",
     "국내 AI 스타트업",
+
+    # ── 신규 추가 도메인 (토픽 풀 확장) ──────────────────────────────────────────
+    # AI 모델 추가
+    "Phi Microsoft 소형모델",
+    "Llava 멀티모달",
+    "DALL-E 이미지생성",
+    "Sora OpenAI 영상",
+    "Kling AI 영상생성",
+    "Pika Labs 영상",
+    "Luma Dream Machine",
+
+    # AI 개발/인프라
+    "Ollama 로컬 LLM",
+    "vLLM 추론 최적화",
+    "Triton 추론서버",
+    "LangSmith 모니터링",
+    "Weights Biases MLOps",
+    "Dify AI 플랫폼",
+    "Flowise AI 빌더",
+    "CrewAI 멀티에이전트",
+    "AutoGen 에이전트",
+    "LlamaFactory 파인튜닝",
+
+    # AI 응용 확장
+    "AI 법률 계약서 검토",
+    "AI 세무 회계 자동화",
+    "AI 의료 영상 진단",
+    "AI 약물 개발",
+    "AI 기후 환경",
+    "AI 스포츠 분석",
+    "AI 패션 디자인",
+    "AI 건축 도시계획",
+    "AI 물류 공급망",
+    "AI 금융 리스크",
+
+    # 국내/아시아 AI
+    "일본 AI 정책 기업",
+    "중국 AI 규제 현황",
+    "유럽 AI Act 규제",
+    "인도 AI 스타트업",
+    "동남아 AI 시장",
+    "SK텔레콤 AI",
+    "LG AI 연구원",
+    "현대 AI 모빌리티",
 ]
 
 DAILY_DOMAINS_COUNT = 20
@@ -1051,6 +1095,299 @@ TOPIC_SUBTYPES = {
         "건축 설계 AI 도구",
         "AI 인테리어 설계",
     ],
+
+    # ── 신규 추가 도메인 앵글 ──────────────────────────────────────────────────
+
+    # AI 모델 추가
+    "Phi Microsoft 소형모델": [
+        "Phi-3/Phi-4 모델 성능 벤치마크",
+        "Phi 소형모델 로컬 실행 가이드",
+        "Phi vs Llama 소형모델 비교",
+        "엣지 디바이스에서 Phi 실행하기",
+        "Microsoft SLM 전략 심층 분석",
+        "Phi 파인튜닝 실전 가이드",
+    ],
+    "Llava 멀티모달": [
+        "LLaVA 멀티모달 모델 완전 가이드",
+        "LLaVA 로컬 설치 및 실행 방법",
+        "LLaVA로 이미지 분석하기 실전",
+        "LLaVA vs GPT-4V 성능 비교",
+        "LLaVA 파인튜닝으로 맞춤형 비전 AI",
+        "오픈소스 멀티모달 AI 모델 비교",
+    ],
+    "DALL-E 이미지생성": [
+        "DALL-E 3 완전 활용 가이드",
+        "ChatGPT에서 DALL-E 이미지 생성하기",
+        "DALL-E API 연동 실전 튜토리얼",
+        "DALL-E 텍스트 포함 이미지 생성 팁",
+        "DALL-E vs Midjourney vs Stable Diffusion 비교",
+        "DALL-E 상업 목적 이용 가이드",
+        "DALL-E inpainting 편집 기능 활용",
+    ],
+    "Sora OpenAI 영상": [
+        "Sora 최신 기능 및 업데이트 정리",
+        "Sora 접근 방법 완전 가이드",
+        "Sora로 영상 제작 실전 워크플로우",
+        "Sora vs Runway vs Kling AI 비교",
+        "AI 영상 생성 산업 변화 분석",
+        "Sora 프롬프트 최적화 전략",
+        "Sora 상업 활용 가능성 분석",
+    ],
+    "Kling AI 영상생성": [
+        "Kling AI 완전 사용 가이드",
+        "Kling AI로 영상 만들기 실전",
+        "Kling AI vs Sora vs Runway 비교",
+        "Kling AI 프롬프트 작성법",
+        "중국 AI 영상 생성 기술 현황",
+        "Kling AI 무료 사용 방법",
+    ],
+    "Pika Labs 영상": [
+        "Pika Labs 영상 생성 완전 가이드",
+        "Pika Labs로 숏폼 영상 만들기",
+        "Pika Labs vs Runway Gen-3 비교",
+        "Pika Labs 프롬프트 최적화",
+        "AI 영상 생성 툴 완전 비교",
+        "Pika Labs 무료 플랜 활용법",
+    ],
+    "Luma Dream Machine": [
+        "Luma Dream Machine 완전 가이드",
+        "Luma AI로 고품질 영상 만들기",
+        "Luma Dream Machine vs Sora 비교",
+        "Luma AI 프롬프트 작성 팁",
+        "Luma AI 무료 체험 방법",
+        "AI 영상 생성 플랫폼 총정리",
+    ],
+
+    # AI 개발/인프라
+    "Ollama 로컬 LLM": [
+        "Ollama 설치 및 기본 사용법",
+        "Ollama로 Llama3 로컬 실행하기",
+        "Ollama vs LM Studio 비교",
+        "Ollama API 서버 구축 가이드",
+        "Ollama 모델 다운로드 및 관리",
+        "Ollama 성능 최적화 팁",
+        "Ollama + Open WebUI 연동하기",
+    ],
+    "vLLM 추론 최적화": [
+        "vLLM 완전 설치 및 사용 가이드",
+        "vLLM으로 LLM 추론 속도 높이기",
+        "vLLM vs Ollama 성능 비교",
+        "vLLM OpenAI 호환 서버 구축",
+        "vLLM PagedAttention 원리 설명",
+        "프로덕션 LLM 서빙 최적화",
+    ],
+    "Triton 추론서버": [
+        "NVIDIA Triton 추론 서버 설치 가이드",
+        "Triton으로 AI 모델 배포하기",
+        "Triton vs TensorFlow Serving 비교",
+        "Triton 멀티모델 서빙 구축",
+        "Triton 성능 최적화 전략",
+        "엔터프라이즈 AI 추론 인프라 구축",
+    ],
+    "LangSmith 모니터링": [
+        "LangSmith 완전 활용 가이드",
+        "LLM 애플리케이션 모니터링 방법",
+        "LangSmith로 프롬프트 디버깅하기",
+        "LangSmith 평가 파이프라인 구축",
+        "AI 앱 프로덕션 관찰가능성 구축",
+        "LangSmith vs 경쟁 도구 비교",
+    ],
+    "Weights Biases MLOps": [
+        "Weights & Biases 완전 가이드",
+        "W&B로 ML 실험 추적하기",
+        "MLOps 도구 완전 비교",
+        "W&B로 모델 성능 시각화",
+        "W&B Sweeps 하이퍼파라미터 최적화",
+        "ML 모델 배포 파이프라인 구축",
+    ],
+    "Dify AI 플랫폼": [
+        "Dify AI 설치 및 완전 가이드",
+        "Dify로 RAG 챗봇 만들기",
+        "Dify vs Flowise 비교",
+        "Dify 셀프호스팅 배포 방법",
+        "Dify로 AI 에이전트 구축하기",
+        "노코드 AI 앱 빌더 완전 비교",
+    ],
+    "Flowise AI 빌더": [
+        "Flowise 설치 및 완전 가이드",
+        "Flowise로 LLM 앱 만들기",
+        "Flowise vs n8n AI 워크플로우 비교",
+        "Flowise 셀프호스팅 배포",
+        "Flowise로 RAG 시스템 구축",
+        "노코드 AI 에이전트 빌더 활용",
+    ],
+    "CrewAI 멀티에이전트": [
+        "CrewAI 설치 및 첫 에이전트 만들기",
+        "CrewAI vs AutoGen 비교",
+        "CrewAI로 리서치 자동화하기",
+        "CrewAI 실전 프로젝트 예시",
+        "CrewAI 에이전트 역할 설계 전략",
+        "멀티에이전트 시스템 프레임워크 비교",
+    ],
+    "AutoGen 에이전트": [
+        "AutoGen 완전 설치 및 가이드",
+        "AutoGen으로 멀티에이전트 구축",
+        "AutoGen vs CrewAI 상세 비교",
+        "AutoGen 코딩 에이전트 활용",
+        "AutoGen 그룹 채팅 에이전트 설계",
+        "Microsoft AutoGen 최신 업데이트",
+    ],
+    "LlamaFactory 파인튜닝": [
+        "LlamaFactory 설치 및 사용법",
+        "LlamaFactory로 LLM 파인튜닝하기",
+        "LlamaFactory vs Unsloth 비교",
+        "LlamaFactory 데이터셋 준비 방법",
+        "저사양 GPU로 파인튜닝하기",
+        "LlamaFactory WebUI 활용 가이드",
+    ],
+
+    # AI 응용 확장
+    "AI 법률 계약서 검토": [
+        "AI 계약서 자동 검토 서비스 비교",
+        "AI로 계약서 위험 조항 찾기",
+        "법률 AI 도구 실전 활용법",
+        "AI 계약 분석 정확도 분석",
+        "중소기업 AI 법률 서비스 활용",
+        "계약 검토 AI vs 변호사 비교",
+    ],
+    "AI 세무 회계 자동화": [
+        "AI 세무 신고 자동화 방법",
+        "AI 회계 소프트웨어 비교",
+        "AI로 장부 자동화하기",
+        "세금 신고 AI 활용 가이드",
+        "프리랜서 AI 세무 관리",
+        "AI 세무사 서비스 현황 분석",
+    ],
+    "AI 의료 영상 진단": [
+        "AI 의료 영상 진단 현황 분석",
+        "AI X-ray 판독 정확도 분석",
+        "AI MRI/CT 영상 분석 기술",
+        "의료 영상 AI 규제 현황",
+        "병원 AI 영상 진단 도입 사례",
+        "AI 진단 vs 의사 진단 비교",
+    ],
+    "AI 약물 개발": [
+        "AI 신약 개발 최신 현황",
+        "AI로 단백질 구조 예측하기",
+        "AlphaFold 활용 사례",
+        "AI 임상시험 최적화",
+        "AI 약물 후보 발굴 방법",
+        "AI 신약 개발 성공 사례",
+    ],
+    "AI 기후 환경": [
+        "AI 기후변화 대응 최신 현황",
+        "AI 탄소 배출 추적 시스템",
+        "AI 기후 예측 모델 분석",
+        "에너지 효율화 AI 기술",
+        "AI 환경 모니터링 활용",
+        "AI와 지속가능성 딜레마",
+    ],
+    "AI 스포츠 분석": [
+        "AI 스포츠 데이터 분석 현황",
+        "AI 선수 성과 예측 시스템",
+        "AI 스포츠 중계 기술",
+        "AI 경기 전략 분석 활용",
+        "축구/야구 AI 분석 사례",
+        "AI 스포츠 베팅 분석",
+    ],
+    "AI 패션 디자인": [
+        "AI 패션 디자인 도구 완전 가이드",
+        "AI로 옷 디자인하기 실전",
+        "AI 패션 트렌드 예측",
+        "AI 가상 피팅룸 서비스",
+        "패션 AI 스타트업 현황",
+        "AI 맞춤 의류 추천 서비스",
+    ],
+    "AI 건축 도시계획": [
+        "AI 건축 설계 도구 현황",
+        "AI 도시 계획 최적화 사례",
+        "AI 건물 에너지 효율 분석",
+        "AI 인테리어 디자인 도구",
+        "BIM + AI 건축 활용",
+        "AI 도시 교통 최적화",
+    ],
+    "AI 물류 공급망": [
+        "AI 물류 최적화 현황 분석",
+        "AI 공급망 예측 시스템",
+        "AI 창고 자동화 로봇",
+        "AI 배송 경로 최적화",
+        "AI 재고 관리 자동화",
+        "AI 물류 스타트업 투자 현황",
+    ],
+    "AI 금융 리스크": [
+        "AI 금융 리스크 관리 현황",
+        "AI 신용 리스크 분석 모델",
+        "AI 시장 리스크 예측",
+        "AI 사기 탐지 고도화 기술",
+        "금융 AI 규제 및 컴플라이언스",
+        "AI 포트폴리오 리스크 관리",
+    ],
+
+    # 국내/아시아 AI
+    "일본 AI 정책 기업": [
+        "일본 AI 정책 현황 분석",
+        "일본 AI 기업 TOP 10",
+        "일본 AI 규제 방향 분석",
+        "소프트뱅크 AI 투자 현황",
+        "일본 AI 스타트업 동향",
+        "한일 AI 경쟁력 비교",
+    ],
+    "중국 AI 규제 현황": [
+        "중국 AI 규제 최신 동향",
+        "중국 AI 기업 현황 분석",
+        "중국 AI vs 미국 AI 경쟁",
+        "중국 AI 생성 콘텐츠 규제",
+        "중국 AI 수출 통제 분석",
+        "바이두/알리바바 AI 전략",
+    ],
+    "유럽 AI Act 규제": [
+        "EU AI Act 핵심 내용 완전 정리",
+        "EU AI Act 기업 준수 방법",
+        "AI 규제 각국 비교 분석",
+        "EU AI Act 고위험 AI 분류",
+        "AI Act 시행 일정 및 처벌",
+        "유럽 AI 기업 대응 전략",
+    ],
+    "인도 AI 스타트업": [
+        "인도 AI 스타트업 생태계 분석",
+        "인도 AI 정부 정책 현황",
+        "인도 AI 유니콘 기업 정리",
+        "인도 AI 인재 풀 분석",
+        "아시아 AI 스타트업 투자 비교",
+        "인도 AI 서비스 글로벌 진출",
+    ],
+    "동남아 AI 시장": [
+        "동남아 AI 시장 규모 분석",
+        "싱가포르 AI 허브 현황",
+        "동남아 AI 스타트업 TOP 10",
+        "동남아 AI 정책 비교",
+        "동남아 AI 투자 동향",
+        "한국 AI 기업 동남아 진출 전략",
+    ],
+    "SK텔레콤 AI": [
+        "SK텔레콤 AI 서비스 총정리",
+        "에이닷 AI 서비스 완전 가이드",
+        "SKT AI 전략 방향 분석",
+        "SKT vs KT AI 경쟁 비교",
+        "SKT AI B2B 솔루션 현황",
+        "통신사 AI 서비스 비교",
+    ],
+    "LG AI 연구원": [
+        "LG AI 연구원 EXAONE 분석",
+        "LG AI 전략 방향",
+        "EXAONE 모델 성능 분석",
+        "LG 그룹 AI 도입 현황",
+        "LG AI B2B 솔루션",
+        "국내 대기업 AI 연구소 비교",
+    ],
+    "현대 AI 모빌리티": [
+        "현대차 AI 모빌리티 전략",
+        "현대 자율주행 AI 현황",
+        "현대 로봇 AI 기술 분석",
+        "현대 보스턴다이나믹스 AI",
+        "현대 AI 스마트팩토리",
+        "국내 자동차 AI 기술 비교",
+    ],
 }
 
 
@@ -1483,6 +1820,29 @@ def generate_trending_queries() -> list:
     queries.extend(arxiv_candidates)
     print(f"  [arXiv Weekly] {len(arxiv_candidates)}개 논문 후보 추가")
 
+    # ── ProductHunt 최신 AI 제품 ─────────────────────────────────────────────
+    try:
+        ph_url = "https://www.producthunt.com/feed?category=artificial-intelligence"
+        ph_items = fetch_rss_generic(ph_url, max_items=8)
+        for item in ph_items:
+            title = item.get("title", "")
+            if not title or len(title) < 10:
+                continue
+            q = re.sub(r"\s+", " ", title[:80]).strip()
+            if not is_duplicate(q, set()):
+                queries.append({
+                    "query": q,
+                    "domain": "AI 생산성 활용",
+                    "positioning": "실용가이드",
+                    "subtype": "ProductHunt 신제품",
+                    "score": 3,
+                    "source": "producthunt",
+                    "news": [], "web": [],
+                })
+        print(f"  [ProductHunt RSS] {len(ph_items)}개 항목 수집")
+    except Exception as e:
+        print(f"  [ProductHunt] 수집 오류: {e}")
+
     # 오늘의 20개 도메인 (로테이션)
     todays_domains = get_todays_domains()
     print(f"  [도메인 로테이션] 오늘의 도메인 {len(todays_domains)}개: {', '.join(todays_domains[:5])}...")
@@ -1703,6 +2063,58 @@ def select_top_topics(n=3) -> list:
                 selected.append(s)
             if len(selected) >= n:
                 break
+
+    # ── 여전히 부족하면 도메인 확장 수집 ───────────────────────────────────────
+    if len(selected) < n:
+        print(f"\n  [확장 수집] 후보 {len(selected)}개 부족 → 미사용 도메인 {len(AI_DOMAINS) - DAILY_DOMAINS_COUNT}개 추가 탐색")
+        # 오늘 미사용 도메인 목록
+        used_domains = set(get_todays_domains())
+        unused_domains = [d for d in AI_DOMAINS if d not in used_domains]
+
+        # 미사용 도메인 seed 셔플 (오늘 날짜 기반 재현 가능)
+        import random as _rnd
+        _rnd_inst = _rnd.Random(int(hashlib.md5((TODAY + "expand").encode()).hexdigest(), 16))
+        _rnd_inst.shuffle(unused_domains)
+
+        for extra_domain in unused_domains:
+            if len(selected) >= n:
+                break
+            weekly_angles_ext = load_weekly_angles()
+            subtypes = weekly_angles_ext.get(extra_domain, TOPIC_SUBTYPES.get(extra_domain, []))
+
+            # 세부 앵글 우선 시도
+            if subtypes:
+                seed_val = int(hashlib.md5((TODAY + extra_domain + "ext").encode()).hexdigest(), 16)
+                angle = subtypes[seed_val % len(subtypes)]
+                ext_query = f"{extra_domain} {angle}"
+            else:
+                ext_query = extra_domain
+                angle = ""
+
+            # 중복 체크
+            if is_duplicate(ext_query, history):
+                continue
+
+            # 빠른 뉴스 수집
+            news = fetch_gnews(ext_query, max_results=3)
+            web  = brave_search(ext_query, count=3)
+            fresh = len([x for x in news if TODAY in x.get("pubdate", "") or
+                         (datetime.date.today() - datetime.timedelta(1)).isoformat() in x.get("pubdate", "")])
+            score = fresh * 2 + len(news) + len(web)
+
+            candidate = {
+                "query":       ext_query,
+                "domain":      extra_domain,
+                "score":       score,
+                "positioning": DOMAIN_POSITIONING.get(extra_domain, "트렌드분석"),
+                "subtype":     angle if subtypes else "",
+                "news":        news[:3],
+                "web":         web[:3],
+                "source":      "expanded",
+            }
+            selected.append(candidate)
+            used_queries.add(ext_query)
+            print(f"    [확장] {extra_domain}: {ext_query[:50]}")
 
     print(f"\n  [최종 선정] {len(selected)}개:")
     for i, t in enumerate(selected, 1):
